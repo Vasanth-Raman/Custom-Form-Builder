@@ -22,6 +22,15 @@ import Code from "../assets/icons/code.svg";
 import Domain from "../assets/icons/domain.svg";
 import Folder from "../assets/icons/folder.svg";
 
+import Iban from "../assets/icons/iban-icon.svg";
+import Lemlist from "../assets/icons/lemlist-icon.svg";
+import Maker from "../assets/icons/maker-icon.svg";
+import Websharp from "../assets/icons/webisharp-icon.svg";
+import Social from "../assets/icons/socialhack-icon.svg";
+import Pinpoint from "../assets/icons/pinpoint-icon.svg";
+import Bole from "../assets/icons/bole-icon.svg";
+import Awsme from "../assets/icons/awsome-icon.svg";
+
 export const imageDataTop = [
   { id: 1, icon: Gmail, alt: "Gmail Icon" },
   { id: 2, icon: Chimp, alt: "Mail Chimp Icon" },
@@ -87,5 +96,48 @@ of your choice`,
     subText: `Organize your typebots in specific folders
 to keep it clean and work with multiple
 clients`,
+  },
+];
+
+export const partnerCompanies = [
+  {
+    id: 1,
+    src: Iban,
+    alt: "IBAN Icon",
+  },
+  {
+    id: 2,
+    src: Lemlist,
+    alt: "Lemlist Icon",
+  },
+  {
+    id: 3,
+    src: Maker,
+    alt: "Maker Icon",
+  },
+  {
+    id: 4,
+    src: Websharp,
+    alt: "Websharp Icon",
+  },
+  {
+    id: 5,
+    src: Social,
+    alt: "Social Hack Icon",
+  },
+  {
+    id: 6,
+    src: Pinpoint,
+    alt: "Pinpoint Icon",
+  },
+  {
+    id: 7,
+    src: Bole,
+    alt: "Bole Icon",
+  },
+  {
+    id: 8,
+    src: Awsme,
+    alt: "Awsome Icon",
   },
 ];
