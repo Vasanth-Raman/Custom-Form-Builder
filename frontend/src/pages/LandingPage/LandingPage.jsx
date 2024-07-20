@@ -6,6 +6,7 @@ import OldvsNew from "../../components/LandingComponents/OldvsNew/OldvsNew";
 import DemoModels from "../../components/LandingComponents/DemoModels/DemoModels";
 import PlatformSection from "../../components/LandingComponents/PlatformSection/PlatformSection";
 import ResultsSection from "../../components/LandingComponents/ResultsSection/ResultsSection";
+import FeaturesSection from "../../components/LandingComponents/FeaturesSection/FeaturesSection";
 
 const LandingPage = () => {
   return (
@@ -16,6 +17,7 @@ const LandingPage = () => {
       <DemoModels />
       <PlatformSection />
       <ResultsSection />
+      <FeaturesSection />
     </div>
   );
 };
