@@ -4,6 +4,7 @@ import Header from "../../components/LandingComponents/Header/Header";
 import HeroSection from "../../components/LandingComponents/HeroSection/HeroSection";
 import OldvsNew from "../../components/LandingComponents/OldvsNew/OldvsNew";
 import DemoModels from "../../components/LandingComponents/DemoModels/DemoModels";
+import PlatformSection from "../../components/LandingComponents/PlatformSection/PlatformSection";
 
 const LandingPage = () => {
   return (
@@ -12,6 +13,7 @@ const LandingPage = () => {
       <HeroSection />
       <OldvsNew />
       <DemoModels />
+      <PlatformSection />
     </div>
   );
 };
