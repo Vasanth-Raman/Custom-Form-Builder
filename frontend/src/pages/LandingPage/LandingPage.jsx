@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./LandingPage.module.css";
 import Header from "../../components/LandingComponents/Header/Header";
 import HeroSection from "../../components/LandingComponents/HeroSection/HeroSection";
@@ -9,10 +8,11 @@ import ResultsSection from "../../components/LandingComponents/ResultsSection/Re
 import FeaturesSection from "../../components/LandingComponents/FeaturesSection/FeaturesSection";
 import CreatorsSection from "../../components/LandingComponents/CreatorsSection/CreatorsSection";
 import TrialFreeSection from "../../components/LandingComponents/TrialFreeSection/TrialFreeSection";
+import Footer from "../../components/LandingComponents/Footer/Footer";
 
 const LandingPage = () => {
   return (
-    <div>
+    <div className={styles.landingPage}>
       <Header />
       <HeroSection />
       <OldvsNew />
@@ -22,6 +22,7 @@ const LandingPage = () => {
       <FeaturesSection />
       <CreatorsSection />
       <TrialFreeSection />
+      <Footer />
     </div>
   );
 };

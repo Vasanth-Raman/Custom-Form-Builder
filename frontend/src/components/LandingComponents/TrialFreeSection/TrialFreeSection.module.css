@@ -57,10 +57,24 @@
   position: absolute;
   left: -15px;
   top: 1.5rem;
+  /* animation: float 5s ease-in-out infinite; */
 }
 
 .rightShape {
   position: absolute;
   right: 0;
   top: 15rem;
+  /* animation: float 8s ease-in-out infinite; */
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
