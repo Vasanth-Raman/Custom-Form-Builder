@@ -42,10 +42,6 @@
   transition: transform 1s ease;
 }
 
-.logoContainer:hover {
-  transition: top 10px 2s;
-}
-
 .cardContainer:hover .logoContainer {
   animation: bounce 1s forwards;
 }
