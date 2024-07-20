@@ -8,6 +8,7 @@ import PlatformSection from "../../components/LandingComponents/PlatformSection/
 import ResultsSection from "../../components/LandingComponents/ResultsSection/ResultsSection";
 import FeaturesSection from "../../components/LandingComponents/FeaturesSection/FeaturesSection";
 import CreatorsSection from "../../components/LandingComponents/CreatorsSection/CreatorsSection";
+import TrialFreeSection from "../../components/LandingComponents/TrialFreeSection/TrialFreeSection";
 
 const LandingPage = () => {
   return (
@@ -20,6 +21,7 @@ const LandingPage = () => {
       <ResultsSection />
       <FeaturesSection />
       <CreatorsSection />
+      <TrialFreeSection />
     </div>
   );
 };
