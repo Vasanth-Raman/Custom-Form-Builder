@@ -15,7 +15,7 @@ const FeaturesSection = () => {
         </div>
         <div className={styles.cards}>
           {featureCardsData.map((item) => {
-            return <FeatureCard data={item} />;
+            return <FeatureCard key={item.id} data={item} />;
           })}
         </div>
       </div>

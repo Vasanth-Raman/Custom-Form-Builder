@@ -4,6 +4,7 @@ import Cross from "../../../assets/icons/cross-icon.svg";
 import Tick from "../../../assets/icons/tick-icon.svg";
 import UserLogo from "../../../assets/images/user-logo.png";
 import ChatImage from "../../../assets/images/gif-img.png";
+import CurveArrow from "../../../assets/icons/curve-arrow.svg";
 
 const OldvsNew = () => {
   return (
@@ -40,7 +41,7 @@ const OldvsNew = () => {
                 <label htmlFor="services" className={Styles.label}>
                   What services are you interested in?<span>*</span>
                 </label>
-                <div className={Styles.labelsContainer}>
+                <div className={Styles.labelsContainer} id="services">
                   <label htmlFor="website" className={Styles.label}>
                     <input
                       type="checkbox"
@@ -96,6 +97,10 @@ const OldvsNew = () => {
             </div>
           </div>
           <div className={Styles.rightNew}>
+            <div className={Styles.arrowText}>
+              <p>Try it out!</p>
+              <img src={CurveArrow} alt="Curve Arrow" />
+            </div>
             <img src={Tick} alt="tick icon" />
             <div className={Styles.rigthContainer}>
               <div className={Styles.innerRightContainer}>
