@@ -3,7 +3,7 @@ import Styles from "./OldvsNew.module.css";
 import Cross from "../../../assets/icons/cross-icon.svg";
 import Tick from "../../../assets/icons/tick-icon.svg";
 import UserLogo from "../../../assets/images/user-logo.png";
-import ChatImage from "../../../assets/images/gif-img.png";
+import ChatImage from "../../../assets/images/welcome.gif";
 import CurveArrow from "../../../assets/icons/curve-arrow.svg";
 
 const OldvsNew = () => {
