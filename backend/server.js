@@ -1,9 +1,12 @@
 const express = require("express");
-const env = require("dotenv").config();
+const dotenv = require("dotenv").config();
+const connectDb = require("./config/dbConnect");
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+
+app.use(express.json());
 
 app.get("/health", (req, res) => {
   res.json({
@@ -12,6 +15,8 @@ app.get("/health", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is up and running at port ${PORT}`);
+// app.use("/api/v1/user", userRouter);
+
+app.listen(PORT, async () => {
+  await connectDb();
 });
