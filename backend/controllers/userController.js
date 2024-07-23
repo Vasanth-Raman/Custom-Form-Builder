@@ -42,7 +42,10 @@ const createNewUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    const token = jwt.sign({ userId: user._id }, secret);
+    const token = jwt.sign(
+      { userId: user._id, userName: user.userName },
+      secret
+    );
 
     res.status(201).json({
       success: true,
@@ -79,7 +82,11 @@ const userLogin = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "24h" });
+    const token = jwt.sign(
+      { userId: user._id, userName: user.userName },
+      secret,
+      { expiresIn: "24h" }
+    );
 
     res.status(202).json({
       success: true,
@@ -95,8 +102,48 @@ const userLogin = async (req, res) => {
   }
 };
 
+//user data update
+const userUpdate = async (req, res) => {
+  const userId = req.params.id;
+  const { userName, email, password } = req.body;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    user.userName = userName;
+    user.email = email;
+    user.password = hashedPassword;
+    const updatedUser = await user.save();
+
+    const token = jwt.sign(
+      { userId: user._id, userName: user.userName },
+      secret,
+      { expiresIn: "24h" }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "User data updated Successfully",
+      token: token,
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "server error",
+    });
+  }
+};
+
 module.exports = {
   getUsers,
   createNewUser,
   userLogin,
+  userUpdate,
 };
