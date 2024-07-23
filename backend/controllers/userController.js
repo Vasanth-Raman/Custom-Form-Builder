@@ -84,8 +84,7 @@ const userLogin = async (req, res) => {
 
     const token = jwt.sign(
       { userId: user._id, userName: user.userName },
-      secret,
-      { expiresIn: "24h" }
+      secret
     );
 
     res.status(202).json({
@@ -122,8 +121,7 @@ const userUpdate = async (req, res) => {
 
     const token = jwt.sign(
       { userId: user._id, userName: user.userName },
-      secret,
-      { expiresIn: "24h" }
+      secret
     );
 
     res.status(200).json({
