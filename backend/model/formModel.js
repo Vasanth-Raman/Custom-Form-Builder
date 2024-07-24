@@ -10,13 +10,18 @@ const inputTypes = [
   "phone",
   "date",
   "rating",
-  "buttons",
+  "button",
 ];
 
 const formSchema = new Schema({
   formName: {
     type: String,
     required: true,
+  },
+  theme: {
+    type: String,
+    enum: ["#FFFFFF", "#171923", "#508C9B"],
+    default: "#FFFFFF",
   },
   flow: [
     {
@@ -32,7 +37,7 @@ const formSchema = new Schema({
       content: {
         type: {
           type: String,
-          enum: [...bubbleTypes, inputTypes],
+          enum: [...bubbleTypes, ...inputTypes],
           required: true,
         },
         data: Schema.Types.Mixed,
@@ -46,6 +51,7 @@ const formSchema = new Schema({
   folderId: {
     type: Schema.Types.ObjectId,
     ref: "Folder",
+    default: null,
   },
   createdBy: {
     type: Schema.Types.ObjectId,
