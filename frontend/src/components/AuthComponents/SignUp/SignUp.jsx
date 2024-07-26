@@ -4,11 +4,18 @@ import DoubleTriange from "../../../assets/icons/double-triangle.svg";
 import SandalEllipse from "../../../assets/icons/ellipse-sandal.svg";
 import PinkEllipse from "../../../assets/icons/ellipse-pink.svg";
 import BackArrow from "../../../assets/icons/arrow-back.svg";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   return (
     <div className={styles.signUpContainer}>
-      <img className={styles.backArrow} src={BackArrow} alt="BackArrow" />
+      <img
+        className={styles.backArrow}
+        src={BackArrow}
+        alt="BackArrow"
+        onClick={() => navigate("/")}
+      />
       <img
         className={styles.doubleTriangle}
         src={DoubleTriange}
@@ -67,7 +74,8 @@ const SignUp = () => {
         <div className={styles.btnContainer}>
           <button>Sign Up</button>
           <p>
-            Already have an account ? <span>Login</span>
+            Already have an account ?{" "}
+            <span onClick={() => navigate("/auth/login")}>Login</span>
           </p>
         </div>
       </div>
