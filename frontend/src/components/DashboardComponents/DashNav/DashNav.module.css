@@ -1,17 +1,24 @@
 .navWrapper {
   height: 65px;
+  width: 100%;
   padding: 0px 220px;
   padding-bottom: 1px;
   border-bottom: 1px solid #3d3d3f;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #18181b;
 }
 
 .border {
   outline: none;
   border-radius: 6px;
-  top: 2.5%;
+  top: 16px;
   left: 50%;
   transform: translate(-50%);
-  position: absolute;
+  position: relative;
   min-width: 200px;
   max-width: 305px;
   border: 1px solid #ffffff29;
@@ -36,9 +43,9 @@
 .fixed {
   width: 100%;
   display: flex;
-  gap: 20px;
+  justify-content: space-between;
   align-items: center;
-  padding: 7px 9px;
+  padding: 9px 9px;
   /* border-bottom: 1px solid #3d3d3f; */
   cursor: pointer;
 }

@@ -1,4 +1,5 @@
 .mainWrapper {
+  padding-top: 65px;
   background-color: #18181b;
   min-height: 100vh;
   display: flex;

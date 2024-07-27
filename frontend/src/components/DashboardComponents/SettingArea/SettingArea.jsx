@@ -4,10 +4,19 @@ import UserIcon from "../../../assets/icons/setting-name-icon.svg";
 import LockIcon from "../../../assets/icons/setting-lock-icon.svg";
 import EyeIcon from "../../../assets/icons/setting-eye-icon.svg";
 import LogoutIcon from "../../../assets/icons/setting-logout-icon.svg";
+import BackArrow from "../../../assets/icons/arrow-back.svg";
+import { useNavigate } from "react-router-dom";
 
 const SettingArea = () => {
+  const navigate = useNavigate();
   return (
     <div className={styles.settingWrapper}>
+      <img
+        className={styles.backArrow}
+        src={BackArrow}
+        alt="BackArrow"
+        onClick={() => navigate("/dashboard")}
+      />
       <h3>Settings</h3>
       <form>
         <div className={styles.inputs}>

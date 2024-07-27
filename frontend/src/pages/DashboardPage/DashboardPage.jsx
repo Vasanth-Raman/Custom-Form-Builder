@@ -3,7 +3,7 @@ import styles from "./DashboardPage.module.css";
 import { Routes, Route } from "react-router-dom";
 import SettingArea from "../../components/DashboardComponents/SettingArea/SettingArea";
 import FormsArea from "../../components/DashboardComponents/FormsArea/FormsArea";
-import NotFound from "../ErrorPage";
+import ErrorPage from "../ErrorPage/ErrorPage";
 
 const DashboardPage = () => {
   return (
@@ -11,7 +11,7 @@ const DashboardPage = () => {
       <Routes>
         <Route path="/" element={<FormsArea />} />
         <Route path="/settings" element={<SettingArea />} />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>
   );
