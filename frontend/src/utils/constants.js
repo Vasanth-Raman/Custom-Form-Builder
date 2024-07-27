@@ -31,6 +31,19 @@ import Pinpoint from "../assets/icons/pinpoint-icon.svg";
 import Bole from "../assets/icons/bole-icon.svg";
 import Awsme from "../assets/icons/awsome-icon.svg";
 
+import BubbleText from "../assets/icons/bubble-text-icon.svg";
+import BubbleImage from "../assets/icons/bubble-image-icon.svg";
+import BubbleVideo from "../assets/icons/bubble-video-icon.svg";
+import BubbleGif from "../assets/icons/bubble-gif-icon.svg";
+
+import InputText from "../assets/icons/input-text-icon.svg";
+import InputNumber from "../assets/icons/input-number-icon.svg";
+import InputEmail from "../assets/icons/input-email-icon.svg";
+import InputPhone from "../assets/icons/input-phone-icon.svg";
+import InputDate from "../assets/icons/input-date-icon.svg";
+import InputRating from "../assets/icons/input-rating-icon.svg";
+import InputButton from "../assets/icons/input-button-icon.svg";
+
 export const imageDataTop = [
   { id: 1, icon: Gmail, alt: "Gmail Icon" },
   { id: 2, icon: Chimp, alt: "Mail Chimp Icon" },
@@ -139,5 +152,77 @@ export const partnerCompanies = [
     id: 8,
     src: Awsme,
     alt: "Awsome Icon",
+  },
+];
+
+export const bubbleData = [
+  {
+    id: 1,
+    name: "Text",
+    icon: BubbleText,
+    alt: "Text Bubble Icon",
+  },
+  {
+    id: 2,
+    name: "Image",
+    icon: BubbleImage,
+    alt: "Image Bubble Icon",
+  },
+  {
+    id: 3,
+    name: "Video",
+    icon: BubbleVideo,
+    alt: "Video Bubble Icon",
+  },
+  {
+    id: 4,
+    name: "Gif",
+    icon: BubbleGif,
+    alt: "Gif Bubble Icon",
+  },
+];
+
+export const inputData = [
+  {
+    id: 1,
+    name: "Text",
+    icon: InputText,
+    alt: "Text Input Icon",
+  },
+  {
+    id: 2,
+    name: "Number",
+    icon: InputNumber,
+    alt: "Number Input Icon",
+  },
+  {
+    id: 3,
+    name: "Email",
+    icon: InputEmail,
+    alt: "Email Input Icon",
+  },
+  {
+    id: 4,
+    name: "Phone",
+    icon: InputPhone,
+    alt: "Phone Input Icon",
+  },
+  {
+    id: 5,
+    name: "Date",
+    icon: InputDate,
+    alt: "Date Input Icon",
+  },
+  {
+    id: 6,
+    name: "Rating",
+    icon: InputRating,
+    alt: "Rating Input Icon",
+  },
+  {
+    id: 7,
+    name: "Buttons",
+    icon: InputButton,
+    alt: "Button Input Icon",
   },
 ];
