@@ -1,0 +1,42 @@
+.resWraapper {
+  min-height: calc(100vh - 56px);
+  background-color: #18171c;
+  padding: 50px 120px 20px;
+}
+
+.statContainer {
+  padding: 10px 110px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+}
+
+.stat {
+  padding: 10px;
+  height: auto;
+  border-radius: 16px;
+  background-color: #323232;
+  font-family: "Open Sans", sans-serif;
+  font-size: 18px;
+  line-height: 35.1px;
+  text-align: left;
+  color: #ffffff;
+}
+
+.stat p {
+  font-family: "Open Sans", sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 39.49px;
+  text-align: left;
+}
+
+.views,
+.starts {
+  width: 195.75px;
+}
+
+.rate {
+  width: 255px;
+}
