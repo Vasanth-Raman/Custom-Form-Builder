@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./SignUp.module.css";
 import DoubleTriange from "../../../assets/icons/double-triangle.svg";
 import SandalEllipse from "../../../assets/icons/ellipse-sandal.svg";
 import PinkEllipse from "../../../assets/icons/ellipse-pink.svg";
 import BackArrow from "../../../assets/icons/arrow-back.svg";
 import { useNavigate } from "react-router-dom";
-import validateRegister from "../../../validations/validateRegister";
+import useValidateRegister from "../../../hooks/useValidateRegister";
+import { registerUser } from "../../../api/auth/";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const initialValues = {
@@ -16,7 +18,7 @@ const SignUp = () => {
   };
   const [credentials, setCredentials] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -24,16 +26,43 @@ const SignUp = () => {
     setCredentials((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
-    setFormErrors(validateRegister(credentials));
-    setIsSubmit(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const errors = useValidateRegister(credentials);
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length === 0) {
+      setIsLoading(true);
+      try {
+        await register();
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      toast.error("Please ensure valid info is given");
+    }
   };
 
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      // Logic goes here
+  const register = async () => {
+    try {
+      const response = await registerUser(
+        credentials.userName,
+        credentials.email,
+        credentials.password
+      );
+
+      if (response.success || response.status === 201) {
+        toast.success(response?.data?.message);
+        setCredentials(initialValues);
+        navigate("/auth/login");
+      } else {
+        toast.error(response?.data?.message || "Registration failed");
+      }
+    } catch (error) {
+      toast.error("An error occurred during Sign Up. Please try again later.");
     }
-  }, [formErrors, isSubmit]);
+  };
 
   return (
     <div className={styles.signUpContainer}>
@@ -54,11 +83,7 @@ const SignUp = () => {
         alt="SandalEllipse"
       />
       <img className={styles.pinkEllipse} src={PinkEllipse} alt="PinkEllipse" />
-      <form
-        className={styles.credContainer}
-        onSubmit={(e) => e.preventDefault()}
-        noValidate
-      >
+      <form className={styles.credContainer} noValidate>
         <div className={styles.fieldsContainer}>
           <div className={styles.fields}>
             <label
@@ -75,7 +100,6 @@ const SignUp = () => {
               name="userName"
               value={credentials.userName}
               onChange={handleChange}
-              autoComplete="on"
               placeholder="Enter a username"
               className={`${
                 formErrors.userName ? styles.errorBorder : styles.input
@@ -96,9 +120,9 @@ const SignUp = () => {
               type="email"
               id="email"
               name="email"
+              autoComplete="email"
               value={credentials.email}
               onChange={handleChange}
-              autoComplete="on"
               placeholder="Enter your email"
               className={`${
                 formErrors.email ? styles.errorBorder : styles.input
@@ -121,7 +145,6 @@ const SignUp = () => {
               name="password"
               value={credentials.password}
               onChange={handleChange}
-              autoComplete="on"
               placeholder="**********"
               className={`${
                 formErrors.password ? styles.errorBorder : styles.input
@@ -144,7 +167,6 @@ const SignUp = () => {
               name="confirmPassword"
               value={credentials.confirmPassword}
               onChange={handleChange}
-              autoComplete="on"
               placeholder="**********"
               className={`${
                 formErrors.confirmPassword ? styles.errorBorder : styles.input
@@ -154,7 +176,9 @@ const SignUp = () => {
           </div>
         </div>
         <div className={styles.btnContainer}>
-          <button onClick={handleSubmit}>Sign Up</button>
+          <button onClick={handleSubmit} disabled={isLoading}>
+            {isLoading ? "Signing in..." : "Sign Up"}
+          </button>
           <p>
             Already have an account ?{" "}
             <span onClick={() => navigate("/auth/login")}>Login</span>
