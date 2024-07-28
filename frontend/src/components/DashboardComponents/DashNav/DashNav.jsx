@@ -3,9 +3,12 @@ import styles from "./DashNav.module.css";
 import Dropdown from "../../../assets/icons/drop-down-icon.svg";
 import Dropup from "../../../assets/icons/drop-up-icon.svg";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 
 const DashNav = () => {
   const [openDropdown, setOpenDropDown] = useState(false);
+  const { logoutContext, user } = useAuth();
+
   return (
     <div className={styles.navWrapper}>
       <div className={styles.border}>
@@ -19,7 +22,7 @@ const DashNav = () => {
                 : { borderBottom: "1px solid #3d3d3f" }
             }
           >
-            <p>Dewank Rastogi's workspace</p>
+            <p>{`${user.userName}'s workspace`}</p>
             <img src={openDropdown ? Dropup : Dropdown} alt="drop down" />
           </div>
           {openDropdown && (
@@ -33,7 +36,7 @@ const DashNav = () => {
                 <Link to={"/dashboard/settings"}>Settings</Link>
               </div>
               <div>
-                <button>Log Out</button>
+                <button onClick={() => logoutContext()}>Log Out</button>
               </div>
             </div>
           )}

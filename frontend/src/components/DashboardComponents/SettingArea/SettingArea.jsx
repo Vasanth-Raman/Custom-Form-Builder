@@ -6,7 +6,10 @@ import EyeIcon from "../../../assets/icons/setting-eye-icon.svg";
 import LogoutIcon from "../../../assets/icons/setting-logout-icon.svg";
 import BackArrow from "../../../assets/icons/arrow-back.svg";
 import { useNavigate } from "react-router-dom";
-import validateUserUpdate from "../../../validations/validateUserUpdate";
+import useValidateUserUpdate from "../../../hooks/validateUserUpdate";
+import { useAuth } from "../../../context/AuthContext";
+import { updateUser } from "../../../api/auth";
+import { toast } from "react-toastify";
 
 const SettingArea = () => {
   const initialValues = {
@@ -17,24 +20,51 @@ const SettingArea = () => {
   };
   const [credentials, setCredentials] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { logoutContext } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCredentials((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = () => {
-    setFormErrors(validateUserUpdate(credentials));
-    setIsSubmit(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const errors = useValidateUserUpdate(credentials);
+    setFormErrors(errors);
+
+    if (Object.keys(errors).length === 0) {
+      setIsLoading(true);
+      try {
+        await newUserData();
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      toast.error("Please ensure valid info is given");
+    }
   };
 
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      // Logic goes here
+  const newUserData = async () => {
+    try {
+      const response = await updateUser(
+        credentials.userName,
+        credentials.email,
+        credentials.oldPassword,
+        credentials.password
+      );
+      if (response.success || response.status === 202) {
+        toast.success(response?.data?.message);
+        setCredentials(initialValues);
+        logoutContext();
+      } else {
+        toast.error(response?.data?.message || "Login failed");
+      }
+    } catch (error) {
+      toast.error("An error occurred during login. Please try again later.");
     }
-  }, [formErrors, isSubmit]);
+  };
 
   return (
     <div className={styles.settingWrapper}>
@@ -45,7 +75,7 @@ const SettingArea = () => {
         onClick={() => navigate("/dashboard")}
       />
       <h3>Settings</h3>
-      <form onSubmit={(e) => e.preventDefault()} noValidate>
+      <form onSubmit={handleSubmit} noValidate>
         <div className={styles.inputs}>
           <div>
             <div className={styles.field}>
@@ -111,10 +141,10 @@ const SettingArea = () => {
           </div>
         </div>
         <div className={styles.button}>
-          <button onClick={handleSubmit}>Update</button>
+          <button type="submit">{isLoading ? "Updating..." : "Update"}</button>
         </div>
       </form>
-      <div className={styles.logout}>
+      <div className={styles.logout} onClick={() => logoutContext()}>
         <img src={LogoutIcon} alt="LogoutIcon" />
         <p>Log out</p>
       </div>

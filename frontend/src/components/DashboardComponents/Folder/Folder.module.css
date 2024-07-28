@@ -18,6 +18,12 @@
   cursor: pointer;
 }
 
+.deleteImgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .folder img {
   height: 16px;
   width: 16px;
