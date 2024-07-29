@@ -161,24 +161,32 @@ export const bubbleData = [
     name: "Text",
     icon: BubbleText,
     alt: "Text Bubble Icon",
+    bubbleOrInput: "bubble",
+    type: "text",
   },
   {
     id: 2,
     name: "Image",
     icon: BubbleImage,
     alt: "Image Bubble Icon",
+    bubbleOrInput: "bubble",
+    type: "image",
   },
   {
     id: 3,
     name: "Video",
     icon: BubbleVideo,
     alt: "Video Bubble Icon",
+    bubbleOrInput: "bubble",
+    type: "video",
   },
   {
     id: 4,
     name: "Gif",
     icon: BubbleGif,
     alt: "Gif Bubble Icon",
+    bubbleOrInput: "bubble",
+    type: "gif",
   },
 ];
 
@@ -188,41 +196,105 @@ export const inputData = [
     name: "Text",
     icon: InputText,
     alt: "Text Input Icon",
+    bubbleOrInput: "input",
+    type: "text",
   },
   {
     id: 2,
     name: "Number",
     icon: InputNumber,
     alt: "Number Input Icon",
+    bubbleOrInput: "input",
+    type: "number",
   },
   {
     id: 3,
     name: "Email",
     icon: InputEmail,
     alt: "Email Input Icon",
+    bubbleOrInput: "input",
+    type: "email",
   },
   {
     id: 4,
     name: "Phone",
     icon: InputPhone,
     alt: "Phone Input Icon",
+    bubbleOrInput: "input",
+    type: "phone",
   },
   {
     id: 5,
     name: "Date",
     icon: InputDate,
     alt: "Date Input Icon",
+    bubbleOrInput: "input",
+    type: "date",
   },
   {
     id: 6,
     name: "Rating",
     icon: InputRating,
     alt: "Rating Input Icon",
+    bubbleOrInput: "input",
+    type: "rating",
   },
   {
     id: 7,
-    name: "Buttons",
+    name: "Button",
     icon: InputButton,
     alt: "Button Input Icon",
+    bubbleOrInput: "input",
+    type: "button",
   },
 ];
+
+export const bubbleTypeData = {
+  text: {
+    logoType: BubbleText,
+    title: "Text",
+    placeholder: "Click here to edit",
+  },
+  image: {
+    logoType: BubbleImage,
+    title: "Image",
+    placeholder: "Click to add link",
+  },
+  video: {
+    logoType: BubbleVideo,
+    title: "Video",
+    placeholder: "Click to add link",
+  },
+  gif: {
+    logoType: BubbleGif,
+    title: "GIF",
+    placeholder: "Click to add link",
+  },
+};
+
+export const inputTypeData = {
+  text: {
+    title: "Input Text",
+    placeholder: "Hint: User will input a text on his form",
+  },
+  number: {
+    title: "Input Number",
+    placeholder: "Hint: User will input a number on his form",
+  },
+  email: {
+    title: "Input Email",
+    placeholder: "Hint: User will input a email on his form",
+  },
+  phone: {
+    title: "Input Phone",
+    placeholder: "Hint: User will input a phone on his form",
+  },
+  date: {
+    title: "Input Date",
+    placeholder: "Hint: User will input a date on his form",
+  },
+  rating: {
+    title: "Input Rating",
+    placeholder: "Hint: User will tap to rate out of 5",
+  },
+};

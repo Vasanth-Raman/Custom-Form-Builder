@@ -56,6 +56,10 @@
   border: 1px solid #27272a;
 }
 
+.singleButton:hover {
+  background-color: #4a4a4d;
+}
+
 .singleButton img {
   width: 16px;
   height: 16px;

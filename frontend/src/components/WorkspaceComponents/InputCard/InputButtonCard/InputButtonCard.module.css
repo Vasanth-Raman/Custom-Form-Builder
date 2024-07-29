@@ -53,3 +53,13 @@
   width: 16px;
   height: 16px;
 }
+
+.btnContainer small {
+  font-family: "Poppins", sans-serif;
+  font-size: 10.43px;
+  font-weight: 500;
+  line-height: 15.65px;
+  letter-spacing: 0.03em;
+  text-align: left;
+  color: #522224;
+}

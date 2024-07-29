@@ -14,7 +14,7 @@
   background-color: #37373e;
   outline: none;
   border: 0;
-  border: 3px;
+  border-radius: 3px;
   padding: 0 10px;
   color: #ffffff;
   font-family: "Open Sans", sans-serif;

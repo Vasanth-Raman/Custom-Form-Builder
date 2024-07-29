@@ -1,16 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styles from "./Flow.module.css";
 import FlowSidebar from "../FlowSidebar/FlowSidebar";
 import FlowStartFlag from "../../../assets/icons/flow-start-icon.svg";
 import BubbleCard from "../BubbleCard/BubbleCard";
-import BubbleText from "../../../assets/icons/bubble-text-icon.svg";
-import BubbleImage from "../../../assets/icons/bubble-image-icon.svg";
-import BubbleVideo from "../../../assets/icons/bubble-video-icon.svg";
-import BubbleGif from "../../../assets/icons/bubble-gif-icon.svg";
 import InputFlowCard from "../InputCard/InputFlowCard/InputFlowCard";
 import InputButtonCard from "../InputCard/InputButtonCard/InputButtonCard";
+import { bubbleTypeData, inputTypeData } from "../../../utils/constants";
 
 const Flow = () => {
+  const flow = useSelector((store) => store.flows.flowitems);
+  console.log(flow);
   return (
     <div className={styles.flowWrapper}>
       <div className={styles.sidebarConatiner}>
@@ -22,32 +22,42 @@ const Flow = () => {
           <p>Start</p>
         </div>
         <div className={styles.formFlows}>
-          <BubbleCard
-            logoType={BubbleText}
-            title={"Text"}
-            type={"bubble"}
-            placeholder={"Click here to edit"}
-          />
-          <BubbleCard
-            logoType={BubbleImage}
-            title={"Image"}
-            type={"bubble"}
-            placeholder={"Click to add link"}
-          />
-          <BubbleCard
-            logoType={BubbleVideo}
-            title={"Video"}
-            type={"bubble"}
-            placeholder={"Click to add link"}
-          />
-          <BubbleCard
-            logoType={BubbleGif}
-            title={"GIF"}
-            type={"bubble"}
-            placeholder={"Click to add link"}
-          />
-          <InputFlowCard />
-          <InputButtonCard />
+          {flow.map((item, index) => {
+            if (item.bubbleOrInput === "bubble") {
+              const bubbleDatas = bubbleTypeData[item.content.type];
+              if (bubbleDatas) {
+                return (
+                  <BubbleCard
+                    key={index + 1}
+                    logoType={bubbleDatas.logoType}
+                    title={item.title}
+                    placeholder={bubbleDatas.placeholder}
+                    index={index}
+                  />
+                );
+              }
+            } else if (item.bubbleOrInput === "input") {
+              if (item.content.type === "button") {
+                return (
+                  <InputButtonCard
+                    key={index + 1}
+                    title={item.title}
+                    index={index}
+                  />
+                );
+              } else {
+                const inputDatas = inputTypeData[item.content.type];
+                return (
+                  <InputFlowCard
+                    key={index + 1}
+                    title={item.title}
+                    placeholder={inputDatas.placeholder}
+                    index={index}
+                  />
+                );
+              }
+            }
+          })}
         </div>
       </div>
     </div>

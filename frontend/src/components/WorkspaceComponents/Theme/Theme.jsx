@@ -4,9 +4,14 @@ import LightTheme from "../../../assets/images/light-theme.png";
 import DarkTheme from "../../../assets/images/dark-theme.png";
 import BlueTheme from "../../../assets/images/blue-theme.png";
 import BotPic from "../../../assets/icons/bot-pic.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { setTheme } from "../../../redux/slices/formFieldSlice";
 
 const Theme = () => {
-  const [theme, setTheme] = useState("#FFFFFF");
+  // const [theme, setTheme] = useState("#FFFFFF");
+  const theme = useSelector((store) => store.fields.theme);
+  const dispatch = useDispatch();
+  console.log(theme);
   return (
     <div className={styles.themeWrapper}>
       <div className={styles.sideTheme}>
@@ -20,7 +25,7 @@ const Theme = () => {
                 ? `${styles.selected} ${styles.themes}`
                 : styles.themes
             }
-            onClick={() => setTheme("#FFFFFF")}
+            onClick={() => dispatch(setTheme("#FFFFFF"))}
           >
             <img src={LightTheme} alt="light theme" />
             <div>
@@ -33,7 +38,7 @@ const Theme = () => {
                 ? `${styles.selected} ${styles.themes}`
                 : styles.themes
             }
-            onClick={() => setTheme("#171923")}
+            onClick={() => dispatch(setTheme("#171923"))}
           >
             <img src={DarkTheme} alt="dark theme" />
             <div>
@@ -46,7 +51,7 @@ const Theme = () => {
                 ? `${styles.selected} ${styles.themes}`
                 : styles.themes
             }
-            onClick={() => setTheme("#508C9B")}
+            onClick={() => dispatch(setTheme("#508C9B"))}
           >
             <img src={BlueTheme} alt="blue theme" />
             <div>
