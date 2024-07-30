@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./Theme.module.css";
 import LightTheme from "../../../assets/images/light-theme.png";
 import DarkTheme from "../../../assets/images/dark-theme.png";
@@ -6,12 +6,19 @@ import BlueTheme from "../../../assets/images/blue-theme.png";
 import BotPic from "../../../assets/icons/bot-pic.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setTheme } from "../../../redux/slices/formFieldSlice";
+import { useParams } from "react-router-dom";
 
-const Theme = () => {
-  // const [theme, setTheme] = useState("#FFFFFF");
+const Theme = ({ onIdChange }) => {
+  const { id } = useParams();
   const theme = useSelector((store) => store.fields.theme);
   const dispatch = useDispatch();
-  console.log(theme);
+
+  //to get id to navBar
+  useEffect(() => {
+    if (onIdChange) {
+      onIdChange(id);
+    }
+  }, [id, onIdChange]);
   return (
     <div className={styles.themeWrapper}>
       <div className={styles.sideTheme}>

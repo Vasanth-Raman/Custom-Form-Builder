@@ -1,20 +1,17 @@
 import React from "react";
 import styles from "./NavBar.module.css";
 import CloseIcon from "../../../assets/icons/close-icon.svg";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setFormName } from "../../../redux/slices/formFieldSlice.js";
-import { createForm } from "../../../api/form.js";
+import { createForm, updateForm } from "../../../api/form.js";
 import { toast } from "react-toastify";
 
-const NavBar = () => {
+const NavBar = ({ formId }) => {
   const location = useLocation();
   const formFields = useSelector((store) => store.fields);
   const flow = useSelector((store) => store.flows.flowitems);
   const error = useSelector((store) => store.errors);
-  console.log(error);
-  console.log(flow);
-  console.log(formFields);
   const dispatch = useDispatch();
   const handleFormName = (e) => {
     dispatch(setFormName(e.target.value));
@@ -26,7 +23,11 @@ const NavBar = () => {
       return;
     }
     try {
-      await createNewForm();
+      if (formId) {
+        await updateOldForm(formId);
+      } else {
+        await createNewForm();
+      }
     } catch {
       toast.error("Please try again also check every fields are filled");
     }
@@ -55,6 +56,37 @@ const NavBar = () => {
     }
   };
 
+  const updateOldForm = async (formId) => {
+    try {
+      const response = await updateForm(
+        formFields.formName,
+        formFields.theme,
+        flow,
+        formId
+      );
+      if (response.success || response.status === 201) {
+        toast.success(response?.data?.message);
+      } else {
+        toast.error(
+          response?.data?.message ||
+            "Form updation failed. Please try again later"
+        );
+      }
+    } catch (error) {
+      toast.error(
+        "An error occurred during form creation. Please try again later."
+      );
+    }
+  };
+
+  const isActive = (path) => location.pathname.startsWith(path);
+
+  const flowLink = formId ? `/workspace/flow/${formId}` : "/workspace/flow";
+  const themeLink = formId ? `/workspace/theme/${formId}` : "/workspace/theme";
+  const responseLink = formId
+    ? `/workspace/response/${formId}`
+    : "/workspace/response";
+
   return (
     <div className={styles.navContainer}>
       <div className={styles.navLeft}>
@@ -68,32 +100,24 @@ const NavBar = () => {
       <div className={styles.navMiddle}>
         <div>
           <Link
-            to={"/workspace/flow"}
-            className={
-              location.pathname === "/workspace/flow" ? styles.activePage : ""
-            }
+            to={flowLink}
+            className={isActive("/workspace/flow") ? styles.activePage : ""}
           >
             Flow
           </Link>
         </div>
         <div>
           <Link
-            to={"/workspace/theme"}
-            className={
-              location.pathname === "/workspace/theme" ? styles.activePage : ""
-            }
+            to={themeLink}
+            className={isActive("/workspace/theme") ? styles.activePage : ""}
           >
             Theme
           </Link>
         </div>
         <div>
           <Link
-            to={"/workspace/response"}
-            className={
-              location.pathname === "/workspace/response"
-                ? styles.activePage
-                : ""
-            }
+            to={responseLink}
+            className={isActive("/workspace/response") ? styles.activePage : ""}
           >
             Response
           </Link>

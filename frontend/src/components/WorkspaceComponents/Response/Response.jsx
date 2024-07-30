@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./Response.module.css";
+import { useParams } from "react-router-dom";
 
-const Response = () => {
+const Response = ({ onIdChange }) => {
+  const { id } = useParams();
+
+  //to get id to navBar
+  useEffect(() => {
+    if (onIdChange) {
+      onIdChange(id);
+    }
+  }, [id, onIdChange]);
   return (
     <div className={styles.resWraapper}>
       <div className={styles.statContainer}>
