@@ -13,11 +13,19 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userPresent = window.localStorage.getItem("user");
+    const handleStorageChange = () => {
+      const storedUser = JSON.parse(
+        window.localStorage.getItem("user") || "null"
+      );
+      setUser(storedUser);
+    };
 
-    if (userPresent) {
-      setUser(JSON.parse(userPresent));
-    }
+    // checks any changes happens in localStorage
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   const loginContext = (userDetails) => {
@@ -33,7 +41,7 @@ const AuthProvider = ({ children }) => {
     navigate("/auth/login");
   };
 
-  const values = { user, loginContext, logoutContext };
+  const values = { user, setUser, loginContext, logoutContext };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };

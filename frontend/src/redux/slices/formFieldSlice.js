@@ -17,9 +17,16 @@ const formFieldSlice = createSlice({
     setFolderId: (state, action) => {
       state.folderId = action.payload;
     },
+    setFormData: (state, action) => {
+      const { formName, theme, folderId } = action.payload;
+      state.formName = formName;
+      state.theme = theme;
+      state.folderId = folderId;
+    },
   },
 });
 
-export const { setFormName, setTheme, setFolderId } = formFieldSlice.actions;
+export const { setFormName, setTheme, setFolderId, setFormData } =
+  formFieldSlice.actions;
 
 export default formFieldSlice.reducer;

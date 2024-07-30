@@ -22,7 +22,43 @@ const formFlowSlice = createSlice({
   initialState,
   reducers: {
     setFlow: (state, action) => {
-      return action.payload;
+      const flow = action.payload;
+      state.flowitems = flow;
+
+      // making counters to initial values
+      state.counters = {
+        text: 0,
+        image: 0,
+        video: 0,
+        gif: 0,
+        inputText: 0,
+        inputNumber: 0,
+        inputEmail: 0,
+        inputPhone: 0,
+        inputDate: 0,
+        inputRating: 0,
+        inputButton: 0,
+      };
+
+      // Re count counters
+      flow.forEach((item) => {
+        const itemType =
+          item.bubbleOrInput === "bubble"
+            ? item.content.type
+            : `input${
+                item.content.type.charAt(0).toUpperCase() +
+                item.content.type.slice(1)
+              }`;
+
+        if (state.counters[itemType] !== undefined) {
+          state.counters[itemType] += 1;
+        }
+      });
+
+      // Update orders
+      state.flowitems.forEach((item, index) => {
+        item.order = index + 1;
+      });
     },
     addFlowItem: (state, action) => {
       const { bubbleOrInput, type, data } = action.payload;
