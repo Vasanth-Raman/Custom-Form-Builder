@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./DeleteModal.module.css";
 import { deleteFolder } from "../../../api/folder";
+import { deleteForm } from "../../../api/form";
 import { toast } from "react-toastify";
 
-const DeleteModal = ({ modalSetter, isOpen, type, id }) => {
+const DeleteModal = ({ modalSetter, isOpen, type, id, onDelete }) => {
   const ref = useRef(null);
 
   if (!isOpen) {
@@ -12,13 +13,33 @@ const DeleteModal = ({ modalSetter, isOpen, type, id }) => {
 
   const handleDelete = async () => {
     if (type === "folder") {
-      await deleteOldFolder();
+      try {
+        await deleteOldFolder();
+      } finally {
+        onDelete();
+      }
+    } else if (type === "Form") {
+      await deleteOldForm();
     }
   };
 
   const deleteOldFolder = async () => {
     try {
       const response = await deleteFolder(id);
+      if (response.success || response.status === 200) {
+        toast.success(response?.data?.message);
+        modalSetter(false);
+      } else {
+        toast.error(response?.data?.message);
+      }
+    } catch (error) {
+      toast.error("Couldn't delete folder. Please try again later.");
+    }
+  };
+
+  const deleteOldForm = async () => {
+    try {
+      const response = await deleteForm(id);
       if (response.success || response.status === 200) {
         toast.success(response?.data?.message);
         modalSetter(false);

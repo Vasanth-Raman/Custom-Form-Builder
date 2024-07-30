@@ -6,7 +6,7 @@ import EyeIcon from "../../../assets/icons/setting-eye-icon.svg";
 import LogoutIcon from "../../../assets/icons/setting-logout-icon.svg";
 import BackArrow from "../../../assets/icons/arrow-back.svg";
 import { useNavigate } from "react-router-dom";
-import useValidateUserUpdate from "../../../hooks/validateUserUpdate";
+import useValidateUserUpdate from "../../../hooks/useValidateUserUpdate";
 import { useAuth } from "../../../context/AuthContext";
 import { updateUser } from "../../../api/auth";
 import { toast } from "react-toastify";

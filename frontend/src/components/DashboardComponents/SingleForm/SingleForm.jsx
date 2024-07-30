@@ -2,15 +2,23 @@ import React from "react";
 import styles from "./SingleForm.module.css";
 import Delete from "../../../assets/icons/delete-icon.svg";
 
-const SingleForm = ({ modalSetter, setType }) => {
+const SingleForm = ({
+  modalSetter,
+  setType,
+  id,
+  title,
+  setId,
+  handleSelectForm,
+}) => {
   const handleDeleteModal = () => {
+    setId(id);
     setType("Form");
     modalSetter(true);
   };
 
   return (
-    <div className={styles.form}>
-      <p>New Form</p>
+    <div className={styles.form} onClick={() => handleSelectForm(id)}>
+      <p>{title}</p>
       <div onClick={handleDeleteModal}>
         <img src={Delete} alt="delete icon" />
       </div>

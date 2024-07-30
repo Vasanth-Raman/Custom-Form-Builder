@@ -4,10 +4,11 @@ import Dropdown from "../../../assets/icons/drop-down-icon.svg";
 import Dropup from "../../../assets/icons/drop-up-icon.svg";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
+import { toast } from "react-toastify";
 
 const DashNav = () => {
   const [openDropdown, setOpenDropDown] = useState(false);
-  const { logoutContext, user } = useAuth();
+  const { user, logoutContext } = useAuth();
 
   return (
     <div className={styles.navWrapper}>
@@ -35,8 +36,8 @@ const DashNav = () => {
               >
                 <Link to={"/dashboard/settings"}>Settings</Link>
               </div>
-              <div>
-                <button onClick={() => logoutContext()}>Log Out</button>
+              <div onClick={() => logoutContext()}>
+                <button>Log Out</button>
               </div>
             </div>
           )}

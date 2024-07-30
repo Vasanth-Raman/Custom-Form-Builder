@@ -2,12 +2,14 @@ import axios from "axios";
 
 const BACKEND_ORIGIN_URL = "http://localhost:3000/api/v1";
 
-const registerUser = async (userName, email, password) => {
+//to read folders
+const getFolders = async () => {
   try {
-    const response = await axios.post(`${BACKEND_ORIGIN_URL}/user/register`, {
-      userName,
-      email,
-      password,
+    const response = await axios.get(`${BACKEND_ORIGIN_URL}/folder/`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
     });
 
     return {
@@ -24,35 +26,13 @@ const registerUser = async (userName, email, password) => {
   }
 };
 
-const loginUser = async (email, password) => {
+//to create folder
+const createFolder = async (folderName) => {
   try {
-    const response = await axios.post(`${BACKEND_ORIGIN_URL}/user/login`, {
-      email,
-      password,
-    });
-    return {
-      success: true,
-      data: response.data,
-      status: response.status,
-    };
-  } catch (error) {
-    return {
-      success: false,
-      data: error.response?.data || "An error occurred",
-      status: error.response?.status || 500,
-    };
-  }
-};
-
-const updateUser = async (userName, email, oldPassword, password) => {
-  try {
-    const response = await axios.put(
-      `${BACKEND_ORIGIN_URL}/user/update`,
+    const response = await axios.post(
+      `${BACKEND_ORIGIN_URL}/folder/create/`,
       {
-        userName,
-        email,
-        oldPassword,
-        password,
+        folderName,
       },
       {
         headers: {
@@ -61,14 +41,12 @@ const updateUser = async (userName, email, oldPassword, password) => {
         },
       }
     );
-    console.log(response);
     return {
       success: true,
       data: response.data,
       status: response.status,
     };
   } catch (error) {
-    console.log(error);
     return {
       success: false,
       data: error.response?.data || "An error occurred",
@@ -77,4 +55,30 @@ const updateUser = async (userName, email, oldPassword, password) => {
   }
 };
 
-export { registerUser, loginUser, updateUser };
+//to delete folder
+const deleteFolder = async (folderId) => {
+  try {
+    const response = await axios.delete(
+      `${BACKEND_ORIGIN_URL}/folder/delete/${folderId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    return {
+      success: true,
+      data: response.data,
+      status: response.status,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      data: error.response?.data || "An error occurred",
+      status: error.response?.status || 500,
+    };
+  }
+};
+
+export { getFolders, createFolder, deleteFolder };
