@@ -1,6 +1,4 @@
 const express = require("express");
-const Response = require("../model/responseModel");
-const { format } = require("date-fns");
 const responseRouter = express.Router();
 const {
   createResponse,
