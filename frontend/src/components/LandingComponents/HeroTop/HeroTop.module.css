@@ -11,7 +11,7 @@
 }
 
 .heroTop h1 {
-  font-family: "Outfit";
+  font-family: "Outfit", sans-serif;
   font-size: 4.5rem;
   font-weight: 700;
   line-height: 1.2;
@@ -26,7 +26,7 @@
 
 .heroTop p {
   padding: 0px 14.43px 0px 14.42px;
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 1.25rem;
   font-weight: 400;
   line-height: 30px;
@@ -43,7 +43,7 @@
 }
 
 .heroBtn a {
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 18px;
   font-weight: 600;
   line-height: 21.6px;

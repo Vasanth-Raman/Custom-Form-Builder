@@ -11,7 +11,7 @@ header {
 }
 
 .leftHeader {
-  font-family: "Outfit";
+  font-family: "Outfit", sans-serif;
   display: flex;
   gap: 8px;
   align-items: center;
@@ -32,7 +32,7 @@ header {
 }
 
 .rightHeader {
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   display: flex;
   align-items: center;
   column-gap: 16px;

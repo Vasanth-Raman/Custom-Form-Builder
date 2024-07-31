@@ -13,7 +13,7 @@
   box-shadow: 0px 4px 6.3px 0px #00000040;
   border-radius: 4px;
   background-color: #ffffff;
-  font-family: Open Sans;
+  font-family: "Open Sans", sans-serif;
   font-size: 15px;
   font-weight: 600;
   line-height: 20.43px;
@@ -59,7 +59,7 @@
 }
 
 .inputContainer .input::placeholder {
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 15px;
   font-weight: 600;
   line-height: 20.43px;
@@ -76,7 +76,7 @@
   width: 331px;
   box-shadow: 0px 4px 6.3px 0px #00000040;
   border-radius: 4px;
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 15px;
   font-weight: 600;
   line-height: 20.43px;

@@ -21,7 +21,7 @@
 }
 
 .topPart h2 {
-  font-family: "Outfit";
+  font-family: "Outfit", sans-serif;
   font-size: 60px;
   font-weight: 700;
   line-height: 72px;
@@ -30,7 +30,7 @@
 }
 
 .topPart p {
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 20px;
   font-weight: 400;
   line-height: 30px;
@@ -40,7 +40,7 @@
 }
 
 .topPart p span {
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 20px;
   font-weight: 700;
   line-height: 30px;
@@ -91,7 +91,7 @@
   background-color: #1e293b;
   border-radius: 6px;
   padding: 8px 16px;
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -104,7 +104,7 @@
 }
 
 .down button {
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   border: none;
   box-shadow: 0px 1px 0px 0px #ffffff33 inset;
   padding: 9px 17px;
