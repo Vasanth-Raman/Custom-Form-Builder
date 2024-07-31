@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./InputButtonCard.module.css";
 import DeleteIcon from "../../../../assets/icons/delete-icon.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   removeFlowItem,
   updateFlowItemOrder,
@@ -12,11 +12,21 @@ import { addError, removeError } from "../../../../redux/slices/formErrorSlice";
 const InputButtonCard = ({ title, index }) => {
   const [error, setError] = useState(null);
   const [btnValue, setBtnValue] = useState("");
+  const currentValue = useSelector(
+    (store) => store.flows.flowitems[index]?.content?.data
+  );
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     const value = e.target.value;
     setBtnValue(value);
     dispatch(updateFlowItemContent({ index, newData: value }));
   };
+
+  useEffect(() => {
+    setBtnValue(currentValue || "");
+  }, [currentValue]);
+
   const validate = () => {
     if (btnValue.trim() === "") {
       setError("Required Field");
@@ -27,7 +37,6 @@ const InputButtonCard = ({ title, index }) => {
     }
   };
 
-  const dispatch = useDispatch();
   const handleRemove = (index) => {
     dispatch(removeFlowItem({ index }));
     dispatch(updateFlowItemOrder());

@@ -10,18 +10,23 @@ import TextInput from "../../components/FormBotComponents/InputComponents/TextIn
 import BotIcon from "../../components/FormBotComponents/BubbleComponents/BotIcon/BotIcon";
 import { getFormBot } from "../../api/form";
 import { toast } from "react-toastify";
+import { createResponse, updateResponse } from "../../api/response";
+import { useParams } from "react-router-dom";
 
 const FormBotPage = () => {
   const [formFlow, setFormFlow] = useState([]);
   const [theme, setTheme] = useState("#FFFFFF");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isInputType, setIsInputType] = useState(false);
+  const [responses, setResponses] = useState({});
+  const [responseId, setResponseId] = useState(null);
   const scrollRef = useRef();
-  const formId = "66a82f40a408a4de8b66626a";
+
+  const { formId } = useParams();
 
   useEffect(() => {
     getForm(formId);
-  }, []);
+  }, [formId]);
 
   const getForm = async (formId) => {
     try {
@@ -29,7 +34,7 @@ const FormBotPage = () => {
 
       if (response.success || response.status === 200) {
         const { flow, theme } = response?.data?.data;
-        console.log(flow, theme);
+
         setFormFlow(flow);
         setTheme(theme);
       } else {
@@ -38,6 +43,26 @@ const FormBotPage = () => {
     } catch (error) {
       toast.error(
         "An error occurred during fetching folders. Please try again later."
+      );
+    }
+  };
+
+  useEffect(() => {
+    createNewResponse();
+  }, [formId]);
+
+  const createNewResponse = async () => {
+    try {
+      const response = await createResponse(formId);
+
+      if (response.success || response.status === 201) {
+        setResponseId(response?.data?.responseId);
+      } else {
+        toast.error("Please try again");
+      }
+    } catch (error) {
+      toast.error(
+        "An error occurred during creating response. Please try again later."
       );
     }
   };
@@ -60,12 +85,26 @@ const FormBotPage = () => {
   }, [currentIndex, formFlow, isInputType]);
 
   const handleScrollToBottom = () => {
-    scrollRef.current.scrollIntoView();
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
-  const handleUserInput = () => {
-    setIsInputType(false);
-    setCurrentIndex((prevIndex) => prevIndex + 1);
+  const handleUserInput = async (title, response) => {
+    try {
+      const responses = await updateResponse(responseId, title, response);
+
+      if (responses.success || responses.status === 201) {
+        setResponses((prev) => ({
+          ...prev,
+          [title]: response,
+        }));
+        setIsInputType(false);
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+      }
+    } catch (error) {
+      toast.error("An error occurred during submission. Please try again.");
+    }
   };
 
   return (
@@ -104,7 +143,7 @@ const FormBotPage = () => {
                     title={title}
                     type="text"
                     placeholder={"Enter your text"}
-                    onUserInput={handleUserInput}
+                    onUserInput={(response) => handleUserInput(title, response)}
                   />
                 );
               case "number":
@@ -114,7 +153,7 @@ const FormBotPage = () => {
                     title={title}
                     type="number"
                     placeholder={"Enter a number"}
-                    onUserInput={handleUserInput}
+                    onUserInput={(response) => handleUserInput(title, response)}
                   />
                 );
               case "email":
@@ -124,7 +163,7 @@ const FormBotPage = () => {
                     title={title}
                     type="email"
                     placeholder={"Enter your email"}
-                    onUserInput={handleUserInput}
+                    onUserInput={(response) => handleUserInput(title, response)}
                   />
                 );
               case "phone":
@@ -134,7 +173,7 @@ const FormBotPage = () => {
                     title={title}
                     type="tel"
                     placeholder={"Enter your phone"}
-                    onUserInput={handleUserInput}
+                    onUserInput={(response) => handleUserInput(title, response)}
                   />
                 );
 
@@ -143,7 +182,7 @@ const FormBotPage = () => {
                   <DateInput
                     key={index}
                     title={title}
-                    onUserInput={handleUserInput}
+                    onUserInput={(response) => handleUserInput(title, response)}
                   />
                 );
               case "rating":
@@ -151,7 +190,7 @@ const FormBotPage = () => {
                   <RatingInput
                     key={index}
                     title={title}
-                    onUserInput={handleUserInput}
+                    onUserInput={(response) => handleUserInput(title, response)}
                   />
                 );
               case "button":
@@ -160,7 +199,7 @@ const FormBotPage = () => {
                     key={index}
                     title={title}
                     data={data}
-                    onUserInput={handleUserInput}
+                    onUserInput={(response) => handleUserInput(title, response)}
                   />
                 );
               default:

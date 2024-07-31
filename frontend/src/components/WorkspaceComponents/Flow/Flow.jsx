@@ -18,7 +18,7 @@ const Flow = ({ onIdChange }) => {
   const dispatch = useDispatch();
 
   const { id } = useParams();
-  console.log(id);
+
   const [param] = useSearchParams();
   const folderId = param.get("folderId");
 

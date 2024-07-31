@@ -53,6 +53,7 @@ const BubbleCard = ({ logoType, title, index, placeholder }) => {
             placeholder={placeholder}
             value={value}
             onChange={handleChange}
+            onFocus={validate}
             onBlur={validate}
             autoFocus
           />

@@ -60,6 +60,7 @@
   align-items: center;
   gap: 20px;
   padding-right: 15px;
+  position: relative;
 }
 
 .navRight button {
@@ -81,6 +82,10 @@
   background-color: #848890;
 }
 
+.shareActive {
+  background-color: #1a5fff;
+}
+
 .saveBtn {
   background-color: #4ade80cc;
 }
@@ -99,4 +104,25 @@
   height: 14px;
   width: 14px;
   color: #f55050;
+}
+
+.shareLink {
+  position: absolute;
+  top: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 4px;
+  border: 1.32px solid #3d3d3f;
+  background-color: #18181b;
+  padding: 5px 10px;
+}
+
+.shareLink p {
+  font-family: "Open Sans", sans-serif;
+  font-size: 12.51px;
+  font-weight: 400;
+  line-height: 15.01px;
+  text-align: left;
+  color: #ffffffeb;
 }
