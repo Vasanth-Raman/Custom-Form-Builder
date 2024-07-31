@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./FormsArea.module.css";
 import DashNav from "../DashNav/DashNav";
 import CreateFolder from "../../../assets/icons/create-folder.svg";
@@ -12,6 +12,8 @@ import { getFolders } from "../../../api/folder";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { getDashboardForms, getFolderForms } from "../../../api/form";
+import ShimmerFolder from "../../LoadingComponents/ShimmerFolder/ShimmerFolder";
+import ShimmerForm from "../../LoadingComponents/ShimmerForm/ShimmerForm";
 
 const FormsArea = () => {
   const navigate = useNavigate();
@@ -71,15 +73,16 @@ const FormsArea = () => {
   };
 
   // fetch forms outside folders after any folder gets deleted need to pass to delete modal
-  const handleFolderDeletion = async () => {
+  const handleFolderDeletion = useCallback(async () => {
     try {
       await readDashboardForms();
+      setFolderId(null);
     } catch (error) {
       toast.error("Failed to refresh forms after deletion.");
     } finally {
       setFolderId(null);
     }
-  };
+  });
 
   //forms inside folders
   const readFolderForms = async (folderId) => {
@@ -144,40 +147,57 @@ const FormsArea = () => {
                 <img src={CreateFolder} alt="create folder" />
                 <p>Create a folder</p>
               </div>
-              {/* Example Folder component usage */}
-              {folders.map((folder) => {
-                return (
-                  <Folder
-                    key={folder._id}
-                    id={folder._id}
-                    folderId={folderId}
-                    setFolderId={setFolderId}
-                    setId={setSelectedDeleteId}
-                    name={folder.folderName}
-                    modalSetter={setIsDeleteModalOpen}
-                    setType={setDeleteModalType}
-                  />
-                );
-              })}
+
+              {folders.length === 0 ? (
+                <>
+                  {Array.from({ length: 15 }, (_, index) => (
+                    <ShimmerFolder key={index} />
+                  ))}
+                </>
+              ) : (
+                folders.map((folder) => {
+                  return (
+                    <Folder
+                      key={folder._id}
+                      id={folder._id}
+                      folderId={folderId}
+                      setFolderId={setFolderId}
+                      setId={setSelectedDeleteId}
+                      name={folder.folderName}
+                      modalSetter={setIsDeleteModalOpen}
+                      setType={setDeleteModalType}
+                    />
+                  );
+                })
+              )}
             </div>
             <div className={styles.forms}>
               <div className={styles.createForm} onClick={handleCreateForm}>
                 <img src={PlusIcon} alt="plus icon" />
                 <p>Create a typbot</p>
               </div>
-              {forms.map((form) => {
-                return (
-                  <Form
-                    key={form._id}
-                    id={form._id}
-                    title={form.formName}
-                    modalSetter={setIsDeleteModalOpen}
-                    setType={setDeleteModalType}
-                    handleSelectForm={handleSelectForm}
-                    setId={setSelectedDeleteId}
-                  />
-                );
-              })}
+
+              {forms.length === 0 ? (
+                <>
+                  {Array.from({ length: 15 }, (_, index) => (
+                    <ShimmerForm key={index} />
+                  ))}
+                </>
+              ) : (
+                forms.map((form) => {
+                  return (
+                    <Form
+                      key={form._id}
+                      id={form._id}
+                      title={form.formName}
+                      modalSetter={setIsDeleteModalOpen}
+                      setType={setDeleteModalType}
+                      handleSelectForm={handleSelectForm}
+                      setId={setSelectedDeleteId}
+                    />
+                  );
+                })
+              )}
             </div>
           </div>
         </div>

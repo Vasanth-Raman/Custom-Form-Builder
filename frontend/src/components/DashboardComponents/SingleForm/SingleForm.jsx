@@ -10,7 +10,8 @@ const SingleForm = ({
   setId,
   handleSelectForm,
 }) => {
-  const handleDeleteModal = () => {
+  const handleDeleteModal = (e) => {
+    e.stopPropagation();
     setId(id);
     setType("Form");
     modalSetter(true);
