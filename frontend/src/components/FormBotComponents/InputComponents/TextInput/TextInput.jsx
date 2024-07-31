@@ -2,11 +2,20 @@ import React, { useState } from "react";
 import styles from "./TextInput.module.css";
 import SendArrow from "../../../../assets/icons/send-arrow.svg";
 
-const TextInput = ({ title, type, placeholder, onUserInput }) => {
+const TextInput = ({ type, placeholder, onUserInput }) => {
   const [disabled, setDisabled] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [error, setError] = useState(false);
 
+  const handleSubmit = () => {
+    if (userInput.trim() === "") {
+      setError(true);
+    } else {
+      setError(false);
+      setDisabled(true);
+      onUserInput(userInput);
+    }
+  };
   return (
     <div className={styles.inputWrapper}>
       <input
@@ -27,14 +36,7 @@ const TextInput = ({ title, type, placeholder, onUserInput }) => {
       />
       <div
         className={disabled ? styles.disabledArrow : styles.arrowImg}
-        onClick={
-          error
-            ? () => null
-            : () => {
-                setDisabled(true);
-                onUserInput();
-              }
-        }
+        onClick={handleSubmit}
       >
         <img src={SendArrow} alt="send arrow" />
       </div>

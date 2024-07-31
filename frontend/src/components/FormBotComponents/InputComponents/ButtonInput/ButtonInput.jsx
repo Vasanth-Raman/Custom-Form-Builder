@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 import styles from "./ButtonInput.module.css";
 
-const ButtonInput = ({ title, data, onUserInput }) => {
+const ButtonInput = ({ data, onUserInput }) => {
   const [disabled, setDisabled] = useState(false);
 
   const buttonRef = useRef();
   console.log(buttonRef);
   const handleClick = () => {
     const buttonValue = buttonRef.current.textContent;
-    console.log("Button value:", buttonRef.current.textContent);
+    onUserInput(buttonValue);
     setDisabled(true);
     onUserInput();
   };

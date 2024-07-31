@@ -21,7 +21,7 @@ const RatingInput = ({ title, onUserInput }) => {
     }
 
     setDisabled(true);
-    onUserInput();
+    onUserInput(selected);
   };
 
   return (

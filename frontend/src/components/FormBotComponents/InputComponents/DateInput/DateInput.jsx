@@ -4,7 +4,7 @@ import SendArrow from "../../../../assets/icons/send-arrow.svg";
 import RightArrow from "../../../../assets/icons/angle-right-solid.svg";
 import LeftArrow from "../../../../assets/icons/angle-left-solid.svg";
 
-const DateInput = ({ title, onUserInput }) => {
+const DateInput = ({ onUserInput }) => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
@@ -116,7 +116,7 @@ const DateInput = ({ title, onUserInput }) => {
               ? () => null
               : () => {
                   setDisabled(true);
-                  onUserInput();
+                  onUserInput(selectedDate.toLocaleDateString());
                 }
           }
         >
