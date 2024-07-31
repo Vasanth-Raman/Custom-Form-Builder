@@ -54,7 +54,7 @@
   align-items: center;
   gap: 1.5rem;
   width: 100%;
-  flex: 1;
+  flex-basis: 50%;
 }
 
 .leftOld img {
@@ -206,7 +206,7 @@ input[type="checkbox"]:checked::after {
   align-items: center;
   gap: 1.5rem;
   width: 100%;
-  flex: 1;
+  flex-basis: 50%;
   position: relative;
 }
 
@@ -243,7 +243,7 @@ input[type="checkbox"]:checked::after {
 }
 
 .innerRightContainer {
-  padding: 40px 20px 137.1px 20px;
+  padding: 40px 20px 110.1px 20px;
   border-radius: 6px;
 }
 

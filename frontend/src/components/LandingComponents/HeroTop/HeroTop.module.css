@@ -55,14 +55,14 @@
   position: absolute;
   left: -35px;
   top: 14px;
-  /* animation: float 5s ease-in-out infinite; */
+  animation: float 5s ease-in-out infinite;
 }
 
 .rightShape {
   position: absolute;
   top: 0px;
   right: -10px;
-  /* animation: float 5s ease-in-out infinite; */
+  animation: float 5s ease-in-out infinite;
 }
 
 .leftShape img {
@@ -84,5 +84,17 @@
   }
   100% {
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 1200px) {
+  .leftShape img {
+    width: 280px;
+    height: 280px;
+  }
+
+  .rightShape img {
+    width: 260px;
+    height: 310px;
   }
 }
