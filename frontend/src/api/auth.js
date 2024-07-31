@@ -61,14 +61,13 @@ const updateUser = async (userName, email, oldPassword, password) => {
         },
       }
     );
-    console.log(response);
+
     return {
       success: true,
       data: response.data,
       status: response.status,
     };
   } catch (error) {
-    console.log(error);
     return {
       success: false,
       data: error.response?.data || "An error occurred",

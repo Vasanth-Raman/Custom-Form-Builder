@@ -11,14 +11,13 @@ const getDashboardForms = async () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    console.log(response);
+
     return {
       success: true,
       data: response.data,
       status: response.status,
     };
   } catch (error) {
-    console.log(error);
     return {
       success: false,
       data: error.response?.data || "An error occurred",
@@ -39,14 +38,13 @@ const getSingleForm = async (formId) => {
         },
       }
     );
-    console.log(response);
+
     return {
       success: true,
       data: response.data,
       status: response.status,
     };
   } catch (error) {
-    console.log(error);
     return {
       success: false,
       data: error.response?.data || "An error occurred",
@@ -67,14 +65,34 @@ const getFolderForms = async (folderId) => {
         },
       }
     );
-    console.log(response);
+
     return {
       success: true,
       data: response.data,
       status: response.status,
     };
   } catch (error) {
-    console.log(error);
+    return {
+      success: false,
+      data: error.response?.data || "An error occurred",
+      status: error.response?.status || 500,
+    };
+  }
+};
+
+//to get data for bot
+const getFormBot = async (folderId) => {
+  try {
+    const response = await axios.get(
+      `${BACKEND_ORIGIN_URL}/form/formBot/${folderId}`
+    );
+
+    return {
+      success: true,
+      data: response.data,
+      status: response.status,
+    };
+  } catch (error) {
     return {
       success: false,
       data: error.response?.data || "An error occurred",
@@ -101,14 +119,13 @@ const createForm = async (formName, theme, flow, folderId) => {
         },
       }
     );
-    console.log(response);
+
     return {
       success: true,
       data: response.data,
       status: response.status,
     };
   } catch (error) {
-    console.log(error);
     return {
       success: false,
       data: error.response?.data || "An error occurred",
@@ -134,14 +151,13 @@ const updateForm = async (formName, theme, flow, formId) => {
         },
       }
     );
-    console.log(response);
+
     return {
       success: true,
       data: response.data,
       status: response.status,
     };
   } catch (error) {
-    console.log(error);
     return {
       success: false,
       data: error.response?.data || "An error occurred",
@@ -163,15 +179,13 @@ const deleteForm = async (formId) => {
         },
       }
     );
-    console.log(response);
-    console.log(localStorage.getItem("token"));
+
     return {
       success: true,
       data: response.data,
       status: response.status,
     };
   } catch (error) {
-    console.log(error);
     return {
       success: false,
       data: error.response?.data || "An error occurred",
@@ -184,6 +198,7 @@ export {
   getDashboardForms,
   getFolderForms,
   getSingleForm,
+  getFormBot,
   createForm,
   updateForm,
   deleteForm,
