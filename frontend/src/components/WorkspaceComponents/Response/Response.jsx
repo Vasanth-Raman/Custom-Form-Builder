@@ -20,7 +20,7 @@ const Response = ({ onIdChange }) => {
   }, [id, onIdChange]);
 
   useEffect(() => {
-    if (id) {
+    if (id !== undefined) {
       fetchResponses();
     }
   }, []);
