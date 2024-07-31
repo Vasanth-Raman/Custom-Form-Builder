@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   padding: 0px 120px 0px 120px;
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
 }
 
 .oldNewContainer {
@@ -23,7 +23,7 @@
 
 .topPart h2 {
   padding: 0px 110.02px 0px 110.01px;
-  font-family: Outfit;
+  font-family: "Outfit", sans-serif;
   font-size: 3.75rem;
   font-weight: 700;
   line-height: 4.5rem;
@@ -32,7 +32,7 @@
 }
 
 .topPart p {
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 20px;
   font-weight: 400;
   line-height: 30px;
@@ -82,7 +82,7 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5rem;
@@ -91,7 +91,7 @@
 }
 
 .label span {
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -108,7 +108,7 @@
   border: 1px solid #ffffff29;
   border-radius: 6px;
   padding: 9.25px 17px;
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 21.79px;
@@ -121,7 +121,7 @@
   border: 1px solid #ffffff29;
   border-radius: 6px;
   padding: 9.25px 17px;
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 21.79px;
@@ -284,7 +284,7 @@ input[type="checkbox"]:checked::after {
 }
 
 .textTopRight p {
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -292,7 +292,7 @@ input[type="checkbox"]:checked::after {
 }
 
 .textTopRight p span {
-  font-family: "Open Sans";
+  font-family: "Open Sans", sans-serif;
   font-size: 16px;
   font-weight: 700;
   line-height: 24px;

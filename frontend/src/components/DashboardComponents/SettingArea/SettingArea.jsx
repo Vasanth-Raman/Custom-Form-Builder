@@ -21,6 +21,8 @@ const SettingArea = () => {
   const [credentials, setCredentials] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
   const navigate = useNavigate();
   const { logoutContext } = useAuth();
 
@@ -113,14 +115,19 @@ const SettingArea = () => {
             <div className={styles.field}>
               <img src={LockIcon} alt="LockIcon" />
               <input
-                type="password"
+                type={showOldPassword ? "text" : "password"}
                 placeholder="Old Password"
                 name="oldPassword"
                 id="oldPassword"
                 value={credentials.oldPassword}
                 onChange={handleChange}
               />
-              <img src={EyeIcon} alt="EyeIcon" />
+              <img
+                src={EyeIcon}
+                alt="EyeIcon"
+                onClick={() => setShowOldPassword(!showOldPassword)}
+                style={{ cursor: "pointer" }}
+              />
             </div>
             <small>{formErrors.oldPassword}</small>
           </div>
@@ -128,14 +135,19 @@ const SettingArea = () => {
             <div className={styles.field}>
               <img src={LockIcon} alt="LockIcon" />
               <input
-                type="password"
+                type={showNewPassword ? "text" : "password"}
                 placeholder="New Password"
                 name="password"
                 id="newPassword"
                 value={credentials.password}
                 onChange={handleChange}
               />
-              <img src={EyeIcon} alt="EyeIcon" />
+              <img
+                src={EyeIcon}
+                alt="EyeIcon"
+                onClick={() => setShowNewPassword(!showNewPassword)}
+                style={{ cursor: "pointer" }}
+              />
             </div>
             <small>{formErrors.password}</small>
           </div>
