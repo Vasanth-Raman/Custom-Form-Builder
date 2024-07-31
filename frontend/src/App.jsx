@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import styles from "./App.module.css";
 import LandingPage from "./pages/LandingPage/LandingPage";
