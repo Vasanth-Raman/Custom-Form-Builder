@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 const FolderModal = ({ isOpen, modalSetter }) => {
   const [folderName, setFolderName] = useState("");
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const ref = useRef(null);
   if (!isOpen) {
@@ -25,12 +26,14 @@ const FolderModal = ({ isOpen, modalSetter }) => {
   };
 
   const createNewFolder = async () => {
+    setIsLoading(true);
     try {
       const response = await createFolder(folderName);
       if (response.success || response.status === 201) {
         toast.success(response?.data?.message || "Folder created");
         setFolderName("");
         modalSetter(false);
+        setIsLoading(false);
       } else {
         toast.error(response?.data?.message || "Folder not created");
       }
@@ -38,6 +41,8 @@ const FolderModal = ({ isOpen, modalSetter }) => {
       toast.error(
         "An error occurred during creating folder. Please try again later."
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -80,20 +85,27 @@ const FolderModal = ({ isOpen, modalSetter }) => {
               value={folderName}
               onChange={(e) => setFolderName(e.target.value)}
               autoFocus
+              disabled={isLoading}
             />
           </div>
           <small>{error}</small>
           <div className={styles.options}>
-            <button className={styles.confirm} type="submit">
-              Done
+            <button
+              className={styles.confirm}
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? "Creating..." : "Done"}
             </button>
             <button
               className={styles.cancel}
               onClick={() => modalSetter(false)}
+              disabled={isLoading}
             >
               Cancel
             </button>
           </div>
+          {isLoading && <div className={styles.loadingRing}></div>}
         </div>
       </form>
     </div>

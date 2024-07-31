@@ -24,6 +24,7 @@ const FormsArea = () => {
   const [forms, setForms] = useState([]);
   const [selectedDeleteId, setSelectedDeleteId] = useState(null);
   const [folderId, setFolderId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   //to fetch forms
   useEffect(() => {
@@ -53,6 +54,8 @@ const FormsArea = () => {
       toast.error(
         "An error occurred during fetching folders. Please try again later."
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,6 +72,8 @@ const FormsArea = () => {
       toast.error(
         "An error occurred during fetching forms. Please try again later."
       );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -148,7 +153,7 @@ const FormsArea = () => {
                 <p>Create a folder</p>
               </div>
 
-              {folders.length === 0 ? (
+              {isLoading ? (
                 <>
                   {Array.from({ length: 15 }, (_, index) => (
                     <ShimmerFolder key={index} />
@@ -177,7 +182,7 @@ const FormsArea = () => {
                 <p>Create a typbot</p>
               </div>
 
-              {forms.length === 0 ? (
+              {isLoading ? (
                 <>
                   {Array.from({ length: 15 }, (_, index) => (
                     <ShimmerForm key={index} />

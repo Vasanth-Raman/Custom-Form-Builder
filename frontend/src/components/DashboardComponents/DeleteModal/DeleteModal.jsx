@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./DeleteModal.module.css";
 import { deleteFolder } from "../../../api/folder";
 import { deleteForm } from "../../../api/form";
@@ -6,20 +6,23 @@ import { toast } from "react-toastify";
 
 const DeleteModal = ({ modalSetter, isOpen, type, id, onDelete }) => {
   const ref = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   if (!isOpen) {
     return null;
   }
 
   const handleDelete = async () => {
-    if (type === "folder") {
-      try {
+    setIsLoading(true);
+    try {
+      if (type === "folder") {
         await deleteOldFolder();
-      } finally {
-        onDelete();
+      } else if (type === "Form") {
+        await deleteOldForm();
       }
-    } else if (type === "Form") {
-      await deleteOldForm();
+    } finally {
+      setIsLoading(false);
+      onDelete();
     }
   };
 
@@ -75,13 +78,19 @@ const DeleteModal = ({ modalSetter, isOpen, type, id, onDelete }) => {
             <div className={styles.text}>
               <p>Are you sure you want to delete this {type} ?</p>
             </div>
+            {isLoading && <div className={styles.loadingRing}></div>}
             <div className={styles.options}>
-              <button className={styles.confirm} onClick={() => handleDelete()}>
+              <button
+                className={styles.confirm}
+                onClick={() => handleDelete()}
+                disabled={isLoading}
+              >
                 Confirm
               </button>
               <button
                 className={styles.cancel}
                 onClick={() => modalSetter(false)}
+                disabled={isLoading}
               >
                 Cancel
               </button>
