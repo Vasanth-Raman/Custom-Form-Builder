@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const secret = process.env.JWT_SECRET;
 
-const getUsers = async (req, res) => {
+const getUsers = async (req, res, next) => {
   try {
     const users = await User.find().lean();
     res.status(200).json({
@@ -13,15 +13,12 @@ const getUsers = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
+    next(error);
   }
 };
 
 //create new user
-const createNewUser = async (req, res) => {
+const createNewUser = async (req, res, next) => {
   const { userName, email, password } = req.body;
   try {
     const existingUser = await User.findOne({
@@ -55,15 +52,12 @@ const createNewUser = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "server error",
-    });
+    next(error);
   }
 };
 
 //user login
-const userLogin = async (req, res) => {
+const userLogin = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email: email }).lean();
@@ -96,15 +90,12 @@ const userLogin = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "server error",
-    });
+    next(error);
   }
 };
 
 //user data update
-const userUpdate = async (req, res) => {
+const userUpdate = async (req, res, next) => {
   const userId = req.user;
   const { userName, email, oldPassword, password } = req.body;
   try {
@@ -149,10 +140,7 @@ const userUpdate = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "server error",
-    });
+    next(error);
   }
 };
 

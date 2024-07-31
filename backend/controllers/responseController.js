@@ -1,8 +1,9 @@
 const Response = require("../model/responseModel");
+const { format } = require("date-fns");
 
 //to createResponse
 
-const createResponse = async (req, res) => {
+const createResponse = async (req, res, next) => {
   const { formId } = req.body;
 
   if (!formId) {
@@ -20,23 +21,20 @@ const createResponse = async (req, res) => {
 
     res.status(201).json({ success: true, responseId: formResponse._id });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error creating response document",
-      error,
-    });
+    console.log(error);
+    next(error);
   }
 };
 
 //to updateResponse
 
-const updateResponse = async (req, res) => {
+const updateResponse = async (req, res, next) => {
   const { responseId } = req.params;
   const { title, response } = req.body;
 
   try {
     const formResponse = await Response.findById(responseId);
-    console.log(formResponse);
+
     if (!formResponse) {
       return res
         .status(404)
@@ -50,20 +48,23 @@ const updateResponse = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Response updated successfully" });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error updating response document",
-      error,
-    });
+    console.log(error);
+    next(error);
   }
 };
 
 //to read responses
 
-const readResponses = async (req, res) => {
+const readResponses = async (req, res, next) => {
   const { formId } = req.params;
+  if (!formId) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Form ID is required" });
+  }
+
   try {
-    const responses = await Response.findById(formId);
+    const responses = await Response.find({ formId }).lean();
 
     if (!responses) {
       return res.status(404).json({
@@ -77,11 +78,8 @@ const readResponses = async (req, res) => {
       data: responses,
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error fetching responses",
-      error,
-    });
+    console.log(error);
+    next(error);
   }
 };
 

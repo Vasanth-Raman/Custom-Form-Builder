@@ -3,7 +3,7 @@ const Folder = require("../model/folderModel");
 const Form = require("../model/formModel");
 
 //reading folders
-const getFolders = async (req, res) => {
+const getFolders = async (req, res, next) => {
   const createdBy = req.user;
   try {
     const folders = await Folder.find({ createdBy }).lean();
@@ -13,15 +13,12 @@ const getFolders = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
+    next(error);
   }
 };
 
 //to create folder
-const createFolder = async (req, res) => {
+const createFolder = async (req, res, next) => {
   const { folderName } = req.body;
   const createdBy = req.user;
   try {
@@ -37,15 +34,12 @@ const createFolder = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
+    next(error);
   }
 };
 
 //to delete folder and all the forms inside it
-const deleteFolder = async (req, res) => {
+const deleteFolder = async (req, res, next) => {
   const folderId = req.params.folderId;
 
   try {
@@ -76,10 +70,7 @@ const deleteFolder = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
+    next(error);
   }
 };
 

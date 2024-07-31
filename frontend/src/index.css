@@ -15,7 +15,12 @@
   box-sizing: inherit;
 }
 
+html,
+body {
+  height: 100%;
+}
+
 a {
   text-decoration: none;
-  color: white;
+  color: #ffffff;
 }

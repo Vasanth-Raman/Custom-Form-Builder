@@ -3,7 +3,7 @@ const Form = require("../model/formModel");
 const Folder = require("../model/folderModel");
 
 //get forms accord to dashboard or inside folder
-const getForms = async (req, res) => {
+const getForms = async (req, res, next) => {
   const createdBy = req.user;
   const { folderId } = req.query;
   try {
@@ -38,15 +38,12 @@ const getForms = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
+    next(error);
   }
 };
 
 //get single form
-const getForm = async (req, res) => {
+const getForm = async (req, res, next) => {
   const { formId } = req.params;
   try {
     if (!mongoose.Types.ObjectId.isValid(formId)) {
@@ -70,15 +67,12 @@ const getForm = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
+    next(error);
   }
 };
 
 //get form for bot
-const getFormBot = async (req, res) => {
+const getFormBot = async (req, res, next) => {
   const { formId } = req.params;
   try {
     if (!mongoose.Types.ObjectId.isValid(formId)) {
@@ -106,15 +100,12 @@ const getFormBot = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
+    next(error);
   }
 };
 
 //create new form
-const createForm = async (req, res) => {
+const createForm = async (req, res, next) => {
   const { formName, theme, flow, folderId } = req.body;
   const createdBy = req.user;
   try {
@@ -142,15 +133,12 @@ const createForm = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
+    next(error);
   }
 };
 
 //update a form
-const updateForm = async (req, res) => {
+const updateForm = async (req, res, next) => {
   const { formName, theme, flow } = req.body;
   const { formId } = req.params;
   try {
@@ -180,15 +168,12 @@ const updateForm = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
+    next(error);
   }
 };
 
 //delete a form
-const deleteForm = async (req, res) => {
+const deleteForm = async (req, res, next) => {
   const { formId } = req.params;
   try {
     const deletedForm = await Form.findByIdAndDelete(formId);
@@ -198,17 +183,14 @@ const deleteForm = async (req, res) => {
         message: "Form not found",
       });
     }
-    console.log(deletedForm);
+
     res.status(200).json({
       success: true,
       message: "Form deleted successfully",
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      success: false,
-      message: "Server error",
-    });
+    next(error);
   }
 };
 
