@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./HeroTop.module.css";
 import YellowTriangle from "../../../assets/icons/yellow-triangle.svg";
 import BlueCurve from "../../../assets/icons/blue-curve.svg";
+import { Link } from "react-router-dom";
 
 const HeroTop = () => {
   return (
@@ -19,7 +20,7 @@ const HeroTop = () => {
         like magic.
       </p>
       <div className={styles.heroBtn}>
-        <a href="#">Create a FormBot for free</a>
+        <Link to={"/auth/register"}>Create a FormBot for free</Link>
       </div>
     </div>
   );

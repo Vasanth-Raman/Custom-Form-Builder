@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./TrialFreeSection.module.css";
 import YellowTriangle from "../../../assets/icons/yellow-triangle.svg";
 import BlueCurve from "../../../assets/icons/blue-curve.svg";
+import { Link } from "react-router-dom";
 
 const TrialFreeSection = () => {
   return (
@@ -15,7 +16,7 @@ const TrialFreeSection = () => {
         </div>
         <h2>Improve conversion and user engagement with FormBots </h2>
         <div className={styles.btnWrapper}>
-          <a href="#">Create a FormBot </a>
+          <Link to={"/auth/register"}>Create a FormBot </Link>
         </div>
 
         <p>
