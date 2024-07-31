@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BACKEND_ORIGIN_URL = "http://localhost:3000/api/v1";
+const BACKEND_ORIGIN_URL = `${import.meta.env.VITE_API_BASE_URL}/api/v1`;
 
 //to read form outside folder
 const getDashboardForms = async () => {
