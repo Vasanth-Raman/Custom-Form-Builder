@@ -24,6 +24,11 @@
   text-align: left;
 }
 
+.navLeft .dummy {
+  height: 1.5rem;
+  width: 12.2rem;
+}
+
 .navLeft input::placeholder {
   color: #767676d1;
 }

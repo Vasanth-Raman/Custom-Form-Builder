@@ -82,7 +82,7 @@ const NavBar = ({ formId }) => {
       );
       if (response.success || response.status === 201) {
         toast.success(response?.data?.message);
- 
+
         navigate(`/workspace/flow/${response.data.data._id}`);
       } else {
         toast.error(
@@ -163,15 +163,23 @@ const NavBar = ({ formId }) => {
     return () => clearTimeout(timer);
   }, [showLink]);
 
+  const showFormName =
+    location.pathname.includes("/theme") ||
+    location.pathname.includes("/response");
+
   return (
     <div className={styles.navContainer}>
       <div className={styles.navLeft}>
-        <input
-          type="text"
-          placeholder="Enter Form Name"
-          value={formFields.formName}
-          onChange={handleFormName}
-        />
+        {showFormName ? (
+          <div className={styles.dummy}></div>
+        ) : (
+          <input
+            type="text"
+            placeholder="Enter Form Name"
+            value={formFields.formName}
+            onChange={handleFormName}
+          />
+        )}
       </div>
       <div className={styles.navMiddle}>
         <div>

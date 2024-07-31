@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getResponses } from "../../../api/response";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import Calendar from "../../../assets/icons/calendar-regular.svg";
 
 const Response = ({ onIdChange }) => {
   const { id } = useParams();
@@ -85,8 +86,10 @@ const Response = ({ onIdChange }) => {
         <table>
           <thead>
             <tr>
-              <th></th> {/* Serial Number Column Header */}
-              <th>Submitted At</th>
+              <th></th>
+              <th className={styles.calImg}>
+                <img src={Calendar} alt="calendar icon" /> Submitted At
+              </th>
               {inputTitles.map((title, index) => (
                 <th key={index}>{clearTitle(title)}</th>
               ))}
