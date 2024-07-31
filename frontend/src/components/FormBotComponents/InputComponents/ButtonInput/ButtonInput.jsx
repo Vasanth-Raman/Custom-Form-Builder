@@ -5,7 +5,6 @@ const ButtonInput = ({ data, onUserInput }) => {
   const [disabled, setDisabled] = useState(false);
 
   const buttonRef = useRef();
-  console.log(buttonRef);
   const handleClick = () => {
     const buttonValue = buttonRef.current.textContent;
     onUserInput(buttonValue);

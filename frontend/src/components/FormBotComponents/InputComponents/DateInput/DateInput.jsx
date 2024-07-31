@@ -87,7 +87,7 @@ const DateInput = ({ onUserInput }) => {
       setError(false);
     }
   };
-  console.log(error);
+ 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
