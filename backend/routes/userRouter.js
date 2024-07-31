@@ -8,6 +8,7 @@ const {
 } = require("../controllers/userController");
 const validateNewUser = require("../middleware/validateNewUser");
 const validateUserUpdate = require("../middleware/validateUserUpdate");
+const verifyToken = require("../middleware/verifyToken");
 
 //get all users
 userRouter.get("/users", getUsers);
@@ -19,6 +20,6 @@ userRouter.post("/register", validateNewUser, createNewUser);
 userRouter.post("/login", userLogin);
 
 //update user data
-userRouter.put("/update/:id", validateUserUpdate, userUpdate);
+userRouter.put("/update", validateUserUpdate, verifyToken, userUpdate);
 
 module.exports = userRouter;

@@ -53,7 +53,7 @@ const deleteFolder = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(folderId)) {
       return res.status(400).json({
         success: false,
-        message: "Folder not found",
+        message: "Folder id is not valid",
       });
     }
 

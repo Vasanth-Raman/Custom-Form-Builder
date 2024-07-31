@@ -27,7 +27,7 @@ const getForms = async (req, res) => {
 
     if (!forms) {
       return res.status(404).json({
-        success: failed,
+        success: false,
         message: "No forms avilable",
       });
     }
@@ -35,6 +35,74 @@ const getForms = async (req, res) => {
     res.status(200).json({
       success: true,
       data: forms,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
+
+//get single form
+const getForm = async (req, res) => {
+  const { formId } = req.params;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(formId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Form Id is not valid",
+      });
+    }
+    const form = await Form.findById(formId);
+
+    if (!form) {
+      return res.status(404).json({
+        success: false,
+        message: "No form avilable",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: form,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+};
+
+//get form for bot
+const getFormBot = async (req, res) => {
+  const { formId } = req.params;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(formId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Form Id is not valid",
+      });
+    }
+    const form = await Form.findById(formId);
+
+    if (!form) {
+      return res.status(404).json({
+        success: false,
+        message: "No form avilable",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: {
+        id: form._id,
+        theme: form.theme,
+        flow: form.flow,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -146,6 +214,8 @@ const deleteForm = async (req, res) => {
 
 module.exports = {
   getForms,
+  getForm,
+  getFormBot,
   createForm,
   updateForm,
   deleteForm,

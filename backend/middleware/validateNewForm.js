@@ -6,10 +6,18 @@ const validateNewForm = (req, res, next) => {
     const createdBy = req.user;
 
     //checking if all the required fields are present
-    if (!formName || !flow) {
+
+    if (!formName) {
       return res.status(400).json({
         success: false,
-        message: "Please provide all the required fields",
+        message: "Please give name for your form",
+      });
+    }
+
+    if (flow.length < 1) {
+      return res.status(400).json({
+        success: false,
+        message: "Please create flow for form",
       });
     }
 

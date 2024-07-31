@@ -25,6 +25,7 @@ const formSchema = new Schema({
   },
   flow: [
     {
+      _id: false,
       title: {
         type: String,
         required: true,

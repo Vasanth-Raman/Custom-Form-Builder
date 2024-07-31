@@ -42,15 +42,16 @@ const createNewUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    const token = jwt.sign(
-      { userId: user._id, userName: user.userName },
-      secret
-    );
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "Registration failed. Please try again later",
+      });
+    }
 
     res.status(201).json({
       success: true,
       message: "Signup successful",
-      token: token,
     });
   } catch (error) {
     console.log(error);
@@ -82,15 +83,16 @@ const userLogin = async (req, res) => {
       });
     }
 
-    const token = jwt.sign(
-      { userId: user._id, userName: user.userName },
-      secret
-    );
+    const token = jwt.sign({ userId: user._id }, secret);
 
     res.status(202).json({
       success: true,
       message: "Login Successful",
       token: token,
+      userData: {
+        userName: user.userName,
+        id: user._id,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -103,8 +105,8 @@ const userLogin = async (req, res) => {
 
 //user data update
 const userUpdate = async (req, res) => {
-  const userId = req.params.id;
-  const { userName, email, password } = req.body;
+  const userId = req.user;
+  const { userName, email, oldPassword, password } = req.body;
   try {
     const user = await User.findById(userId);
     if (!user) {
@@ -113,21 +115,36 @@ const userUpdate = async (req, res) => {
         message: "User not found",
       });
     }
+
+    //checking if username and email already registered
+    const existingUser = await User.findOne({
+      $or: [{ userName: userName }, { email: email }],
+    });
+    if (existingUser) {
+      return res.status(409).json({
+        success: false,
+        message: "Username or email already exists. Try with different one",
+      });
+    }
+
+    //comparing old password
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      return res.status(400).json({
+        success: false,
+        message: "Old password is incorrect",
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     user.userName = userName;
     user.email = email;
     user.password = hashedPassword;
     const updatedUser = await user.save();
 
-    const token = jwt.sign(
-      { userId: user._id, userName: user.userName },
-      secret
-    );
-
     res.status(200).json({
       success: true,
-      message: "User data updated Successfully",
-      token: token,
+      message: "User data updated Successfully. Please login again to continue",
       data: updatedUser,
     });
   } catch (error) {
