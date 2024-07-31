@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const initialState = {
+  formName: "",
+  theme: "#FFFFFF",
+  folderId: null,
+};
+
 const formFieldSlice = createSlice({
   name: "formField",
-  initialState: {
-    formName: "",
-    theme: "#FFFFFF",
-    folderId: null,
-  },
+  initialState,
   reducers: {
     setFormName: (state, action) => {
       state.formName = action.payload;
@@ -23,10 +25,16 @@ const formFieldSlice = createSlice({
       state.theme = theme;
       state.folderId = folderId;
     },
+    resetFormData: () => initialState,
   },
 });
 
-export const { setFormName, setTheme, setFolderId, setFormData } =
-  formFieldSlice.actions;
+export const {
+  setFormName,
+  setTheme,
+  setFolderId,
+  setFormData,
+  resetFormData,
+} = formFieldSlice.actions;
 
 export default formFieldSlice.reducer;

@@ -145,6 +145,7 @@ const formFlowSlice = createSlice({
       const { index, newData } = action.payload;
       state.flowitems[index].content.data = newData;
     },
+    resetFlow: () => initialState,
   },
 });
 
@@ -154,6 +155,7 @@ export const {
   removeFlowItem,
   updateFlowItemOrder,
   updateFlowItemContent,
+  resetFlow,
 } = formFlowSlice.actions;
 
 export default formFlowSlice.reducer;
