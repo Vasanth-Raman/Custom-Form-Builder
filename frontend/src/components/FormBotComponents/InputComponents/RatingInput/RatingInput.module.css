@@ -116,7 +116,7 @@
 
   .disabledArrow {
     height: 52px;
-    width: 75px;
+    width: 56px;
   }
 
   .arrowImg img {
@@ -126,7 +126,7 @@
 
   .disabled {
     height: 52px;
-    width: 100%;
+    width: 230px;
     gap: 13px;
     padding: 0px 5px;
   }
