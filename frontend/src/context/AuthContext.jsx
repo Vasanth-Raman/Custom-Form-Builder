@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       window.removeEventListener("storage", handleStorageChange);
     };
-  }, []);
+  }, [user]);
 
   const loginContext = (userDetails) => {
     setUser(userDetails);
